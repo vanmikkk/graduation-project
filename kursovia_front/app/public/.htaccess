@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. ОБРАБОТКА API (Laravel)
+    # Если запрос начинается с /api/, перенаправляем его ВНУТРЬ папки backend/public
+    # Мы явно добавляем api/ к пути, чтобы Laravel понял маршрут
+    RewriteCond %{REQUEST_URI} ^/api/
+    RewriteRule ^api/(.*)$ /backend/public/api/$1 [L,QSA]
+
+    # 2. ОБРАБОТКА СТАТИКИ (Картинки, CSS, JS от Vue)
+    # Если файл реально существует на диске в public_html - отдаем его сразу
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # 3. ОБРАБОТКА VUE ROUTER (SPA)
+    # Если файл не найден и это не API - отдаем index.html
+    # Это нужно для работы страниц типа /my-board, /courses и т.д.
+    RewriteCond %{REQUEST_URI} !^/api/
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.html [L]
+</IfModule>

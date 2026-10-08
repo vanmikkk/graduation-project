@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+Disallow: /backend/
+Disallow: /api/
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
+Disallow: /checkCourse/
+Disallow: /checkSubmissionsTeacherView/
+
+Clean-param: utm_source&utm_medium&ref /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+Sitemap: https://classman24.ru/sitemap.xml
